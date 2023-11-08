@@ -29,6 +29,60 @@ public class Game{
 				Exit();
 			}
 	}
+	public static boolean AreThereAnyFreeCells(char[][] Field, int n){ //функция, считающая, есть ли еще свободные ячейки; n - размер поля 
+		boolean FreeCells = false;
+		for (int i = 0; i < n; i ++){
+			for (int j = 0; j < n; j ++){
+				if ((Field[i][j] >= '1') && (Field[i][j] <= '9')){
+					FreeCells = true;
+					break;
+				}
+			}
+		}
+		return FreeCells; //если свободные ячейки есть - true
+	}
+	public static boolean WinningSituations(char[][] Field, int n, char player){//функция, ищущая есть ли выигрышные ситуации для одного из игроков; char playerv- символ, за который играет игрок
+		boolean win = true;
+		for (int i = 0; i < n; i ++){
+			if (Field[i][i] != player){
+				win = false;
+			}
+		}
+		if (win) {
+			return true;
+		}
+		win = true;
+		for (int i = 0; i < n; i ++){
+			if (Field[i][n - 1 - i] != player){
+				win = false;
+			}
+		}
+		for (int i = 0; i < n; i ++){
+			win = true;
+			for (int j = 0; j < n; j ++){
+				if (Field[i][j] != player){
+					win = false;
+					break;
+				}
+			}
+		}
+		if (win){
+			return true;
+		}
+		for (int i = 0; i < n; i ++){
+			win = true;
+			for (int j = 0; j < n; j ++){
+				if (Field[j][i] != player){
+					win = false;
+					break;
+				}
+			}
+		}
+		if (win){
+			return true;
+		}
+		return false;
+	}
 	public static void main(String[] args){
 		System.out.println("Добро пожаловать в игру Крeстики - Нолики !");
 		Menu();
